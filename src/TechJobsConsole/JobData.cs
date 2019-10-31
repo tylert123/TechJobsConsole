@@ -50,12 +50,11 @@ namespace TechJobsConsole
             {
                 string aValue = row[column];
 
-                if (aValue.Contains(value))
+                if (aValue.ToUpper().Contains(value.ToUpper()))
                 {
                     jobs.Add(row);
                 }
             }
-
             return jobs;
         }
 
@@ -63,19 +62,28 @@ namespace TechJobsConsole
         {
             LoadData();
 
-            //var comparer = StringComparer.OrdinalIgnoreCase;
-
             List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
 
             foreach (Dictionary<string, string> job in AllJobs)
             {
-                if (job.ContainsValue(value))
+                foreach (KeyValuePair<string, string> jobField in job)
                 {
-                    jobs.Add(job);
+                    if (jobField.Value.ToUpper().Contains(value.ToUpper()))
+                    {
+                        if (jobs.Contains(job))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            jobs.Add(job);
+                        }
+                    }
                 }
             }
             return jobs;
         }
+    
 
         /*
          * Load and parse data from job_data.csv
