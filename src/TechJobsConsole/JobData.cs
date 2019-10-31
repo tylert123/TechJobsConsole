@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -55,6 +56,24 @@ namespace TechJobsConsole
                 }
             }
 
+            return jobs;
+        }
+
+        public static List<Dictionary<string, string>> FindByValue(string value)
+        {
+            LoadData();
+
+            //var comparer = StringComparer.OrdinalIgnoreCase;
+
+            List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
+
+            foreach (Dictionary<string, string> job in AllJobs)
+            {
+                if (job.ContainsValue(value))
+                {
+                    jobs.Add(job);
+                }
+            }
             return jobs;
         }
 
